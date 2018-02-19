@@ -20,6 +20,7 @@ public class ChatListener implements Listener {
         User user = dataProvider.findUser(evt.getPlayer().getUniqueId());
         Group group = user.getGroup();
 
+
         player.setDisplayName(group.getPrefix() + player.getName()+ group.getSuffix());
 
     }
