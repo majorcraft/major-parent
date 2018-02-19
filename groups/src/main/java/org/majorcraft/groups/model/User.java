@@ -1,4 +1,4 @@
-package org.majorcraft.groups.entity;
+package org.majorcraft.groups.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

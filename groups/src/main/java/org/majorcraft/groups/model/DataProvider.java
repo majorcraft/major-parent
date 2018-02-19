@@ -1,7 +1,4 @@
-package org.majorcraft.groups;
-
-import org.majorcraft.groups.entity.Group;
-import org.majorcraft.groups.entity.User;
+package org.majorcraft.groups.model;
 
 import java.util.List;
 import java.util.UUID;

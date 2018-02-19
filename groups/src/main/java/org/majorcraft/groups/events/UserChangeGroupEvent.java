@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.majorcraft.groups.entity.Group;
-import org.majorcraft.groups.entity.User;
+import org.majorcraft.groups.model.Group;
+import org.majorcraft.groups.model.User;
 
 @Getter
 @Setter

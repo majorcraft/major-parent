@@ -5,10 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.PermissionAttachment;
-import org.majorcraft.groups.DataProvider;
+import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.MajorGroups;
-import org.majorcraft.groups.entity.Group;
-import org.majorcraft.groups.entity.User;
+import org.majorcraft.groups.model.Group;
+import org.majorcraft.groups.model.User;
 import org.majorcraft.groups.events.GroupCreateEvent;
 import org.majorcraft.groups.events.UserChangeGroupEvent;
 

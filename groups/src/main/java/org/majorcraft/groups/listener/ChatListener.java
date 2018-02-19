@@ -4,9 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.majorcraft.groups.DataProvider;
-import org.majorcraft.groups.entity.Group;
-import org.majorcraft.groups.entity.User;
+import org.majorcraft.groups.model.DataProvider;
+import org.majorcraft.groups.model.Group;
+import org.majorcraft.groups.model.User;
 
 public class ChatListener implements Listener {
 

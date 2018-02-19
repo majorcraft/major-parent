@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.majorcraft.groups.entity.Group;
+import org.majorcraft.groups.model.Group;
 
 @Getter
 @RequiredArgsConstructor
