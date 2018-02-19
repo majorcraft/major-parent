@@ -14,7 +14,7 @@ public class Group {
 
     private String prefix;
     private String suffix;
-    private final String id;
+    private final String groupId;
     private final Group inheritance;
 
     private List<Permission> permissions;

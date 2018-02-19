@@ -18,6 +18,7 @@ public class UserChangeGroupEvent extends Event {
     private final Group oldGroup;
 
 
+    @Override
     public HandlerList getHandlers() {
         return null;
     }
