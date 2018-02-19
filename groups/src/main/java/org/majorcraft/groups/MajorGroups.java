@@ -1,10 +1,15 @@
 package org.majorcraft.groups;
 
+import lombok.Getter;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class MajorGroups extends JavaPlugin {
 

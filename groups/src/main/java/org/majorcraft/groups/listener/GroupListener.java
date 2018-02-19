@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.PermissionAttachment;
+import org.majorcraft.groups.events.PermissionChangeEvent;
 import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.MajorGroups;
 import org.majorcraft.groups.model.Group;
@@ -15,6 +16,10 @@ import org.majorcraft.groups.events.UserChangeGroupEvent;
 public class GroupListener implements Listener {
 
     private DataProvider dataProvider;
+
+    private MajorGroups majorGroups;
+
+
 
 
     @EventHandler
@@ -46,6 +51,14 @@ public class GroupListener implements Listener {
             at.setPermission(perm, true);
 
         });
+
+    }
+
+    @EventHandler
+    public void onPermissionChange(PermissionChangeEvent evt){
+
+
+
 
     }
 
