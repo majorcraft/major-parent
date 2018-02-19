@@ -10,6 +10,7 @@ public class GroupListener implements Listener {
     @EventHandler
     public void onUserGroupChange(UserChangeGroupEvent evt) {
         System.out.println("User " + evt.getUser() + " changed from Group " + evt.getOldGroup() + " to group " + evt.getNewGroup());
+
     }
 
 
