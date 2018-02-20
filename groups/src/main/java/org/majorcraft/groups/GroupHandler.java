@@ -134,8 +134,6 @@ public class GroupHandler {
     }
 
 
-
-
     public void addGroup(Group group) {
 
 
@@ -153,23 +151,15 @@ public class GroupHandler {
         return groupRepository.getAllGroups();
     }
 
-    public void editGroup(Group group) {
-
-    }
-
     public User addUser(Player player, Group group) {
-
         User user = new User(player.getUniqueId(), player.getName(), group);
 
         userRepository.addUser(user);
         return user;
-
     }
 
     public User addUser(Player player) {
-
         return addUser(player, groupRepository.getDefaultGroup());
-
     }
 
 
@@ -180,5 +170,9 @@ public class GroupHandler {
 
     public List<Group> getAllGroups() {
         return groupRepository.getAllGroups();
+    }
+
+    public void updateGroup(Group group) {
+        groupRepository.updateGroup(group);
     }
 }

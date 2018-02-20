@@ -30,10 +30,7 @@ public class GroupListener implements Listener {
         User user = groupHandler.findUser(player.getUniqueId());
 
         if (user == null) {
-//            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), dataProvider.getDefaultGroup()));
-
             user = groupHandler.addUser(evt.getPlayer());
-
         }
 
         groupHandler.updateUser(user);
@@ -50,6 +47,7 @@ public class GroupListener implements Listener {
 
     @EventHandler
     public void onGroupChange(GroupChangeEvent evt) {
+        groupHandler.updateGroup(evt.getGroup());
         groupHandler.findUserByGroup(evt.getGroup()).forEach(groupHandler::updateUser);
     }
 

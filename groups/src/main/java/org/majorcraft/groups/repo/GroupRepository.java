@@ -17,4 +17,6 @@ public interface GroupRepository {
 
     boolean removeGroup(Group group);
 
+    void updateGroup(Group group);
+
 }

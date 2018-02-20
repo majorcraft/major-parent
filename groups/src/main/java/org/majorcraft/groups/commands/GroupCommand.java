@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.majorcraft.groups.GroupHandler;
+import org.majorcraft.groups.events.GroupChangeEvent;
 import org.majorcraft.groups.events.GroupCreateEvent;
 import org.majorcraft.groups.events.GroupDeleteEvent;
 import org.majorcraft.groups.repo.GroupRepository;
@@ -54,10 +55,12 @@ public class GroupCommand implements CommandExecutor {
 
                         if (key.equalsIgnoreCase("prefix")) {
                             group.setPrefix(value);
+                            Bukkit.getPluginManager().callEvent(new GroupChangeEvent(group));
                             return true;
 
                         } else if (key.equalsIgnoreCase("suffix")) {
                             group.setSuffix(value);
+                            Bukkit.getPluginManager().callEvent(new GroupChangeEvent(group));
                             return true;
 
                         } else if (key.equalsIgnoreCase("inheritance")) {
@@ -66,6 +69,7 @@ public class GroupCommand implements CommandExecutor {
 
                             if (inheritance != null) {
                                 group.setInheritance(inheritance);
+                                Bukkit.getPluginManager().callEvent(new GroupChangeEvent(group));
                                 return true;
                             }
                         }
