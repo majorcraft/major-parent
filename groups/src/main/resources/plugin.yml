@@ -1,0 +1,41 @@
+name: MajorGroups
+author: MajorCraft
+main: org.major.groups.MajorGroups
+
+
+commands:
+  group:
+    description: CRUD for Groups
+    usage: /<command> <add|remove|list|edit> [groupname] <prefix|suffix|inheritance> [value]
+    permission: major.groups.group
+    aliases: [grp]
+
+  classify:
+    description: classifies a user for a group
+    usage: /<command> [player] [group]
+    permissions: major.groups.classify
+    aliases: [cfy, class]
+
+permissions:
+  major.groups.*:
+    discription: All permissions for MajorGroups plugin
+    children:
+      major.groups.group: true
+      major.groups.classify.*: true
+
+  major.groups.classify.*:
+    children:
+      major.groups.classify: true
+      major.groups.classify.all: true
+
+  major.groups.classify:
+    description: Permission to all groups under the own group
+
+  major.groups.classify.all:
+    description: Permission to classify Player in every group
+
+
+
+
+  major.groups.group:
+    discription: Permission for the Group CRUD methods

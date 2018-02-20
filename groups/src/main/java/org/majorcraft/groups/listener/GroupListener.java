@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.majorcraft.groups.GroupHandler;
 import org.majorcraft.groups.events.GroupChangeEvent;
 import org.majorcraft.groups.events.GroupCreateEvent;
+import org.majorcraft.groups.events.GroupDeleteEvent;
 import org.majorcraft.groups.events.UserChangeGroupEvent;
 import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.model.User;
@@ -29,7 +30,10 @@ public class GroupListener implements Listener {
         User user = dataProvider.findUser(player.getUniqueId());
 
         if (user == null) {
-            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), dataProvider.getDefaultGroup()));
+//            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), dataProvider.getDefaultGroup()));
+
+            user = groupHandler.addUser(evt.getPlayer());
+
         }
 
         groupHandler.updateUser(user);
@@ -56,11 +60,18 @@ public class GroupListener implements Listener {
 
 
     @EventHandler
+    public void onUserGroupDelete(GroupDeleteEvent evt) {
+
+        groupHandler.removeGroup(evt.getGroup());
+    }
+
+    @EventHandler
     public void onUserGroupChange(UserChangeGroupEvent evt) {
         System.out.println("User " + evt.getUser() + " changed from Group " + evt.getOldGroup() + " to group " + evt.getNewGroup());
 
+        evt.getUser().setGroup(evt.getNewGroup());
+
         groupHandler.updateUser(evt.getUser());
     }
-
 
 }

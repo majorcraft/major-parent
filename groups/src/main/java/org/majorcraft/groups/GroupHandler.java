@@ -65,16 +65,31 @@ public class GroupHandler {
 
     }
 
-    public void addGroup(Group group){
+    public void addGroup(Group group) {
 
 
     }
 
-    public List<Group> getGroups(){
+    public List<Group> getGroups() {
         return dataProvider.getAllGroups();
     }
 
-    public void editGroup(Group group){
+    public void editGroup(Group group) {
+
+    }
+
+    public User addUser(Player player, Group group) {
+
+        User user = new User(player.getUniqueId(), player.getName(), group);
+
+        dataProvider.addUser(user);
+        return user;
+
+    }
+
+    public User addUser(Player player) {
+
+        return addUser(player, dataProvider.getDefaultGroup());
 
     }
 
