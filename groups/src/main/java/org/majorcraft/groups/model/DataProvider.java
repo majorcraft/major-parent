@@ -21,4 +21,6 @@ public interface DataProvider {
 
     List<User> findUserByGroup(Group group);
 
+    boolean removeGroup(Group group);
+
 }

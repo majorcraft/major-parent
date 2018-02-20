@@ -1,5 +1,6 @@
 package org.majorcraft.groups.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -10,12 +11,14 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class User {
 
     private final UUID userId;
     private final String latestName;
-    private final Group group;
+
+    @Setter
+    private Group group;
 
 
     public boolean isOnline(){

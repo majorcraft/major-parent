@@ -1,14 +1,16 @@
 package org.majorcraft.groups;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
+import org.majorcraft.groups.events.GroupCreateEvent;
+import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.model.Group;
 import org.majorcraft.groups.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,6 +20,8 @@ import java.util.UUID;
 public class GroupHandler {
 
     private static GroupHandler instance = new GroupHandler();
+
+    private static DataProvider dataProvider;
 
     public static GroupHandler getInstance() {
         return instance;
@@ -31,6 +35,47 @@ public class GroupHandler {
 
     private GroupHandler() {
         attachmentMap = new HashMap<>();
+    }
+
+
+    public void removeGroup(Group group) {
+
+        if (group.equals(dataProvider.getDefaultGroup())) {
+
+            System.out.println("Cannot delete default Group");
+
+        } else {
+
+            dataProvider.findUserByGroup(group).forEach(user -> {
+
+
+                Group g = group.getInheritance();
+
+                if (g == null) {
+                    g = dataProvider.getDefaultGroup();
+                }
+
+                user.setGroup(g);
+
+
+            });
+
+            dataProvider.removeGroup(group);
+        }
+
+    }
+
+    public void addGroup(Group group){
+
+
+    }
+
+    public List<Group> getGroups(){
+        return dataProvider.getAllGroups();
+    }
+
+    public void editGroup(Group group){
+
     }
 
     /**
@@ -47,7 +92,7 @@ public class GroupHandler {
             Group group = user.getGroup();
 
             //Set the permissions for the player
-            group.getPermissions().keySet().forEach(perm -> {
+            group.getAllPermissions().keySet().forEach(perm -> {
                 setPermission(player, perm, group.getPermissions().get(perm));
             });
 
@@ -89,6 +134,7 @@ public class GroupHandler {
 
     /**
      * Removes a player PermissionAttachment from the Server and the Map
+     *
      * @param player Player
      */
     public void removePermissionAttachment(Player player) {
@@ -99,7 +145,6 @@ public class GroupHandler {
             player.removeAttachment(atta);
             attachmentMap.remove(player.getUniqueId());
         }
-
 
     }
 

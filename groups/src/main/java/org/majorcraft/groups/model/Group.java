@@ -21,4 +21,17 @@ public class Group {
     private Map<Permission, Boolean> permissions;
 
 
+    /**
+     * Cycles through all inheritenced groups and collects all Permissions
+     * @return All Permissions
+     */
+    public Map<Permission, Boolean> getAllPermissions(){
+
+        Map<Permission, Boolean> ret = inheritance.getAllPermissions();
+        ret.putAll(permissions);
+
+        return ret;
+
+    }
+
 }

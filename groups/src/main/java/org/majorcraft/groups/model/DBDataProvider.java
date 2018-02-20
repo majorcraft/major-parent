@@ -40,4 +40,9 @@ public class DBDataProvider implements DataProvider {
     public Group getDefaultGroup() {
         return null;
     }
+
+    @Override
+    public List<User> findUserByGroup(Group group) {
+        return null;
+    }
 }
