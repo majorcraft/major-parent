@@ -58,7 +58,6 @@ public class MajorGroups extends JavaPlugin {
 
     private void registerListener() {
         getServer().getPluginManager().registerEvents(new GroupListener(), this);
-
     }
 
 

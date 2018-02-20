@@ -12,6 +12,10 @@ import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.model.Group;
 import org.majorcraft.groups.model.User;
 
+
+/**
+ * Classifies a user to a group regarding the classify.all permission
+ */
 public class ClassifyCommand implements CommandExecutor {
 
     private GroupHandler groupHandler;
@@ -31,13 +35,15 @@ public class ClassifyCommand implements CommandExecutor {
 
             if (player != null && group != null) {
 
-                if(commandSender instanceof Player && !commandSender.hasPermission(Permissions.CLASSIFY_ALL)){
+                //If the Sender is a Player and don't has the classify.all Permission
+                if (commandSender instanceof Player && !commandSender.hasPermission(Permissions.CLASSIFY_ALL)) {
 
                     User user = dataProvider.findUser(((Player) commandSender).getUniqueId());
 
-                    if(user != null){
+                    if (user != null) {
 
-                        if(!user.canClassify(group)){
+                        //check if the given group is in inheritance chain
+                        if (!user.canClassify(group)) {
                             commandSender.sendMessage("Cannot classify to a group above your own");
                             return false;
                         }

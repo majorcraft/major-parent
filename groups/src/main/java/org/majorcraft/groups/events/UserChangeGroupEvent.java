@@ -8,6 +8,10 @@ import org.bukkit.event.HandlerList;
 import org.majorcraft.groups.model.Group;
 import org.majorcraft.groups.model.User;
 
+
+/**
+ * User Change Group Event
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -22,6 +26,5 @@ public class UserChangeGroupEvent extends Event {
     public HandlerList getHandlers() {
         return null;
     }
-
 
 }
