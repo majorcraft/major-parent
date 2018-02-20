@@ -19,4 +19,6 @@ public interface DataProvider {
 
     Group getDefaultGroup();
 
+    List<User> findUserByGroup(Group group);
+
 }

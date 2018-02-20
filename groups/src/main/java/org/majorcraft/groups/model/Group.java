@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.bukkit.permissions.Permission;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class Group {
     private final String groupId;
     private final Group inheritance;
 
-    private List<Permission> permissions;
+    private Map<Permission, Boolean> permissions;
 
 
 }

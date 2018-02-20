@@ -4,11 +4,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.permissions.PermissionAttachment;
-import org.majorcraft.groups.events.PermissionChangeEvent;
+import org.majorcraft.groups.GroupHandler;
+import org.majorcraft.groups.events.GroupChangeEvent;
 import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.MajorGroups;
-import org.majorcraft.groups.model.Group;
 import org.majorcraft.groups.model.User;
 import org.majorcraft.groups.events.GroupCreateEvent;
 import org.majorcraft.groups.events.UserChangeGroupEvent;
@@ -19,46 +18,28 @@ public class GroupListener implements Listener {
 
     private MajorGroups majorGroups;
 
-
+    private GroupHandler permissionHandler = GroupHandler.getInstance();
 
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent evt) {
 
-        User user = dataProvider.findUser(evt.getPlayer().getUniqueId());
         Player player = evt.getPlayer();
+        User user = dataProvider.findUser(player.getUniqueId());
 
-        Group group;
-
-        if (user != null) {
-            group = user.getGroup();
-
-        } else {
-            group = dataProvider.getDefaultGroup();
-            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), group));
+        if (user == null) {
+            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), dataProvider.getDefaultGroup()));
         }
 
-        initPermissions(player, group);
-
-
-    }
-
-    private void initPermissions(Player player, Group group) {
-        PermissionAttachment at = player.addAttachment(MajorGroups.getInstance());
-
-        group.getPermissions().forEach(perm -> {
-
-            at.setPermission(perm, true);
-
-        });
+        permissionHandler.updateUser(user);
 
     }
+
 
     @EventHandler
-    public void onPermissionChange(PermissionChangeEvent evt){
+    public void onGroupChange(GroupChangeEvent evt) {
 
-
-
+        dataProvider.findUserByGroup(evt.getGroup()).forEach(permissionHandler::updateUser);
 
     }
 
@@ -71,7 +52,6 @@ public class GroupListener implements Listener {
     @EventHandler
     public void onUserGroupChange(UserChangeGroupEvent evt) {
         System.out.println("User " + evt.getUser() + " changed from Group " + evt.getOldGroup() + " to group " + evt.getNewGroup());
-
     }
 
 
