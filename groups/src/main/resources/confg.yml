@@ -1,0 +1,12 @@
+default-group: player
+
+groups:
+  player:
+    permissions:
+      - major.*
+    prefix: "[Player]"
+    suffix: ""
+
+  admin:
+    inheritance: player
+    prefix: "[Admin]"
