@@ -10,7 +10,7 @@ import org.majorcraft.groups.events.GroupChangeEvent;
 import org.majorcraft.groups.events.GroupCreateEvent;
 import org.majorcraft.groups.events.GroupDeleteEvent;
 import org.majorcraft.groups.events.UserChangeGroupEvent;
-import org.majorcraft.groups.model.DataProvider;
+import org.majorcraft.groups.repo.GroupRepository;
 import org.majorcraft.groups.model.User;
 
 /**
@@ -18,7 +18,7 @@ import org.majorcraft.groups.model.User;
  */
 public class GroupListener implements Listener {
 
-    private DataProvider dataProvider;
+    private GroupRepository dataProvider;
 
     private GroupHandler groupHandler = GroupHandler.getInstance();
 
@@ -27,7 +27,7 @@ public class GroupListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent evt) {
 
         Player player = evt.getPlayer();
-        User user = dataProvider.findUser(player.getUniqueId());
+        User user = groupHandler.findUser(player.getUniqueId());
 
         if (user == null) {
 //            dataProvider.addUser(new User(player.getUniqueId(), player.getName(), dataProvider.getDefaultGroup()));
@@ -50,7 +50,7 @@ public class GroupListener implements Listener {
 
     @EventHandler
     public void onGroupChange(GroupChangeEvent evt) {
-        dataProvider.findUserByGroup(evt.getGroup()).forEach(groupHandler::updateUser);
+        groupHandler.findUserByGroup(evt.getGroup()).forEach(groupHandler::updateUser);
     }
 
     @EventHandler

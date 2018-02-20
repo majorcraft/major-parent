@@ -4,10 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
-import org.majorcraft.groups.events.GroupCreateEvent;
-import org.majorcraft.groups.model.DataProvider;
 import org.majorcraft.groups.model.Group;
 import org.majorcraft.groups.model.User;
+import org.majorcraft.groups.repo.GroupRepository;
+import org.majorcraft.groups.repo.UserRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,9 @@ public class GroupHandler {
 
     private static GroupHandler instance = new GroupHandler();
 
-    private static DataProvider dataProvider;
+    private static GroupRepository groupRepository;
+
+    private static UserRepository userRepository;
 
     public static GroupHandler getInstance() {
         return instance;
@@ -37,61 +39,6 @@ public class GroupHandler {
         attachmentMap = new HashMap<>();
     }
 
-
-    public void removeGroup(Group group) {
-
-        if (group.equals(dataProvider.getDefaultGroup())) {
-
-            System.out.println("Cannot delete default Group");
-
-        } else {
-
-            dataProvider.findUserByGroup(group).forEach(user -> {
-
-
-                Group g = group.getInheritance();
-
-                if (g == null) {
-                    g = dataProvider.getDefaultGroup();
-                }
-
-                user.setGroup(g);
-
-
-            });
-
-            dataProvider.removeGroup(group);
-        }
-
-    }
-
-    public void addGroup(Group group) {
-
-
-    }
-
-    public List<Group> getGroups() {
-        return dataProvider.getAllGroups();
-    }
-
-    public void editGroup(Group group) {
-
-    }
-
-    public User addUser(Player player, Group group) {
-
-        User user = new User(player.getUniqueId(), player.getName(), group);
-
-        dataProvider.addUser(user);
-        return user;
-
-    }
-
-    public User addUser(Player player) {
-
-        return addUser(player, dataProvider.getDefaultGroup());
-
-    }
 
     /**
      * Updates a Player properties given by his Group
@@ -163,5 +110,75 @@ public class GroupHandler {
 
     }
 
+    public void removeGroup(Group group) {
 
+        if (group.equals(groupRepository.getDefaultGroup())) {
+
+            System.out.println("Cannot delete default Group");
+
+        } else {
+
+            userRepository.findUserByGroup(group).forEach(user -> {
+                Group g = group.getInheritance();
+
+                if (g == null) {
+                    g = groupRepository.getDefaultGroup();
+                }
+
+                user.setGroup(g);
+            });
+
+            groupRepository.removeGroup(group);
+        }
+
+    }
+
+
+
+
+    public void addGroup(Group group) {
+
+
+    }
+
+    public User findUser(UUID userId) {
+        return userRepository.findUser(userId);
+    }
+
+    public Group findGroup(String groupId) {
+        return groupRepository.findGroup(groupId);
+    }
+
+    public List<Group> getGroups() {
+        return groupRepository.getAllGroups();
+    }
+
+    public void editGroup(Group group) {
+
+    }
+
+    public User addUser(Player player, Group group) {
+
+        User user = new User(player.getUniqueId(), player.getName(), group);
+
+        userRepository.addUser(user);
+        return user;
+
+    }
+
+    public User addUser(Player player) {
+
+        return addUser(player, groupRepository.getDefaultGroup());
+
+    }
+
+
+    public List<User> findUserByGroup(Group group) {
+        return userRepository.findUserByGroup(group);
+
+    }
+
+    public List<Group> getAllGroups() {
+        return groupRepository.getAllGroups();
+    }
 }

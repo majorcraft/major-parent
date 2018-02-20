@@ -4,15 +4,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.majorcraft.groups.GroupHandler;
 import org.majorcraft.groups.events.GroupCreateEvent;
 import org.majorcraft.groups.events.GroupDeleteEvent;
-import org.majorcraft.groups.model.DataProvider;
+import org.majorcraft.groups.repo.GroupRepository;
 import org.majorcraft.groups.model.Group;
 
 public class GroupCommand implements CommandExecutor {
 
 
-    private DataProvider dataProvider;
+    private GroupHandler groupHandler;
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -31,7 +32,7 @@ public class GroupCommand implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("remove")) {
                 if (args.length == 2) {
                     String groupId = args[1];
-                    Group group = dataProvider.findGroup(groupId);
+                    Group group = groupHandler.findGroup(groupId);
 
                     if (group != null) {
                         Bukkit.getPluginManager().callEvent(new GroupDeleteEvent(commandSender, group));
@@ -44,7 +45,7 @@ public class GroupCommand implements CommandExecutor {
 
                 if (args.length == 4) {
 
-                    Group group = dataProvider.findGroup(args[1]);
+                    Group group = groupHandler.findGroup(args[1]);
 
                     if (group != null) {
 
@@ -61,7 +62,7 @@ public class GroupCommand implements CommandExecutor {
 
                         } else if (key.equalsIgnoreCase("inheritance")) {
 
-                            Group inheritance = dataProvider.findGroup(value);
+                            Group inheritance = groupHandler.findGroup(value);
 
                             if (inheritance != null) {
                                 group.setInheritance(inheritance);
@@ -74,7 +75,7 @@ public class GroupCommand implements CommandExecutor {
             }
             //Read
             else if (args[0].equalsIgnoreCase("list")) {
-                dataProvider.getAllGroups().forEach(group -> {
+                groupHandler.getAllGroups().forEach(group -> {
                     commandSender.sendMessage(group.getGroupId());
                 });
                 return true;

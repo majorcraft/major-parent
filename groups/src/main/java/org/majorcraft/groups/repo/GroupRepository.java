@@ -1,15 +1,11 @@
-package org.majorcraft.groups.model;
+package org.majorcraft.groups.repo;
+
+import org.majorcraft.groups.model.Group;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface DataProvider {
-
-    List<User> getAllUsers();
-
-    User findUser(UUID userId);
-
-    boolean addUser(User user);
+public interface GroupRepository {
 
     List<Group> getAllGroups();
 
@@ -18,8 +14,6 @@ public interface DataProvider {
     boolean addGroup(Group g);
 
     Group getDefaultGroup();
-
-    List<User> findUserByGroup(Group group);
 
     boolean removeGroup(Group group);
 
