@@ -1,5 +1,6 @@
 package org.majorcraft.groups;
 
+import com.sun.istack.internal.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -24,7 +25,7 @@ public class GroupHandler {
 
 
     /**
-     * Map with PermissionAttachements of online Players
+     * Map with PermissionAttachments of online Players
      */
     private Map<UUID, PermissionAttachment> attachmentMap;
 
@@ -34,13 +35,14 @@ public class GroupHandler {
 
     /**
      * Updates a Player properties given by his Group
+     *
      * @param user User
      */
-    public void updateUser(User user){
+    public void updateUser(User user) {
 
         Player player = Bukkit.getServer().getPlayer(user.getUserId());
 
-        if(player != null){
+        if (player != null) {
 
             Group group = user.getGroup();
 
@@ -50,16 +52,17 @@ public class GroupHandler {
             });
 
             //Set the displayname with prefix and suffix
-            player.setDisplayName(group.getPrefix()+player.getDisplayName()+group.getSuffix());
+            player.setDisplayName(group.getPrefix() + player.getDisplayName() + group.getSuffix());
         }
 
     }
 
 
     /**
-     * Sets Permissions for a Specific Player and saves attachement in the map for further use
-     * @param player Player
-     * @param perm permission
+     * Sets Permissions for a Specific Player and saves attachment in the map for further use
+     *
+     * @param player  Player
+     * @param perm    permission
      * @param enabled permission enabled
      */
     public void setPermission(Player player, Permission perm, boolean enabled) {
@@ -67,11 +70,36 @@ public class GroupHandler {
         PermissionAttachment atta = attachmentMap.get(player.getUniqueId());
 
         if (atta == null) {
-            atta = player.addAttachment(MajorGroups.getInstance());
-            attachmentMap.put(player.getUniqueId(), atta);
+            initPermissionAttachment(player);
         }
 
         atta.setPermission(perm, enabled);
+
+    }
+
+    public void initPermissionAttachment(Player player) {
+
+        removePermissionAttachment(player);
+
+        PermissionAttachment atta = player.addAttachment(MajorGroups.getInstance());
+        attachmentMap.put(player.getUniqueId(), atta);
+
+    }
+
+
+    /**
+     * Removes a player PermissionAttachment from the Server and the Map
+     * @param player Player
+     */
+    public void removePermissionAttachment(Player player) {
+
+        PermissionAttachment atta = attachmentMap.get(player.getUniqueId());
+
+        if (atta != null) {
+            player.removeAttachment(atta);
+            attachmentMap.remove(player.getUniqueId());
+        }
+
 
     }
 
