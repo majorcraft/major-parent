@@ -84,6 +84,8 @@ public class GroupHandler {
 
     }
 
+
+
     public void initPermissionAttachment(Player player) {
 
         removePermissionAttachment(player);
@@ -110,6 +112,11 @@ public class GroupHandler {
 
     }
 
+
+    /**
+     * Removes a Group and updates all Players
+     * @param group
+     */
     public void removeGroup(Group group) {
 
         if (group.equals(groupRepository.getDefaultGroup())) {
@@ -134,23 +141,42 @@ public class GroupHandler {
     }
 
 
+    /**
+     * Adds a group
+     * @param group
+     */
     public void addGroup(Group group) {
-
+        groupRepository.addGroup(group);
 
     }
 
+
+    /**
+     * Finds a User from the userId
+     * @param userId userId
+     * @return User
+     */
     public User findUser(UUID userId) {
         return userRepository.findUser(userId);
     }
 
+
+    /**
+     * Finds a Group from the groupId
+     * @param groupId groupId
+     * @return
+     */
     public Group findGroup(String groupId) {
         return groupRepository.findGroup(groupId);
     }
 
-    public List<Group> getGroups() {
-        return groupRepository.getAllGroups();
-    }
 
+    /**
+     * Adds user to the Repository from a Player with a specific group
+     * @param player the player
+     * @param group the group
+     * @return the User
+     */
     public User addUser(Player player, Group group) {
         User user = new User(player.getUniqueId(), player.getName(), group);
 
@@ -158,21 +184,40 @@ public class GroupHandler {
         return user;
     }
 
+    /**
+     * Adds a User to the Repository with the default group
+     * @param player
+     * @return
+     */
     public User addUser(Player player) {
         return addUser(player, groupRepository.getDefaultGroup());
     }
 
 
+    /**
+     * Finds all Users from a specific Group
+     * @param group
+     * @return
+     */
     public List<User> findUserByGroup(Group group) {
         return userRepository.findUserByGroup(group);
 
     }
 
+    /**
+     * Returns a List of all Groups
+     * @return List of all Groups
+     */
     public List<Group> getAllGroups() {
         return groupRepository.getAllGroups();
     }
 
+    /**
+     * Updates the Group into the Repository and all of the users of the group
+     * @param group Group
+     */
     public void updateGroup(Group group) {
+        findUserByGroup(group).forEach(this::updateUser);
         groupRepository.updateGroup(group);
     }
 }

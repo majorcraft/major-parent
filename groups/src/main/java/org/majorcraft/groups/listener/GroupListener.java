@@ -39,16 +39,13 @@ public class GroupListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent evt){
-
         groupHandler.removePermissionAttachment(evt.getPlayer());
-
     }
 
 
     @EventHandler
     public void onGroupChange(GroupChangeEvent evt) {
         groupHandler.updateGroup(evt.getGroup());
-        groupHandler.findUserByGroup(evt.getGroup()).forEach(groupHandler::updateUser);
     }
 
     @EventHandler
