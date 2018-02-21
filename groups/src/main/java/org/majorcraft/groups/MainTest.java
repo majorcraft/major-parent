@@ -1,8 +1,8 @@
 package org.majorcraft.groups;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.majorcraft.groups.model.Group;
 
@@ -27,9 +27,9 @@ public class MainTest {
 
         Group player = new Group("player").setPrefix("Player [").setSuffix("]").setPermissions(permissions);
 
-        Group moderator = new Group("moderator").setPrefix("Moderator [").setSuffix("]").setInheritance(player);
+        Group moderator = new Group("player").setPrefix("Moderator [").setSuffix("]").setInheritance(player);
 
-        Group admin = new Group("admin").setPrefix("Admin [").setSuffix("]").setInheritance(moderator).addPermission("major.groups.classify.all", true);
+        Group admin = new Group("player").setPrefix("Admin [").setSuffix("]").setInheritance(moderator).addPermission("major.groups.classify.all", true);
 
         grList.add(player);
         grList.add(moderator);
@@ -39,7 +39,13 @@ public class MainTest {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 
         try {
-            mapper.writeValue(new File("groups.yml"), grList);
+            mapper.writeValue(new File("groups.yml"), new Group[]{player, moderator, admin});
+
+            Group[] result = mapper.readValue(new File("groups.yml"), Group[].class);
+
+            for (Group g : result) {
+                System.out.println(g.getGroupId());
+            }
 
 
         } catch (IOException e) {
@@ -49,4 +55,6 @@ public class MainTest {
 
     }
 
+
 }
+
