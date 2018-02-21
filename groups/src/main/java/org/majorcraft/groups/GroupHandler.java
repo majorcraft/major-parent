@@ -72,7 +72,7 @@ public class GroupHandler {
      * @param perm    permission
      * @param enabled permission enabled
      */
-    public void setPermission(Player player, Permission perm, boolean enabled) {
+    public void setPermission(Player player, String perm, boolean enabled) {
 
         PermissionAttachment atta = attachmentMap.get(player.getUniqueId());
 
