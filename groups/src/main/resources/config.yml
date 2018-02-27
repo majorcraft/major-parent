@@ -1,0 +1,6 @@
+datasource:
+  host: localhost
+  port: 50000
+  driver: com.ibm.db2.DB2Driver
+  user: username
+  password: start123
